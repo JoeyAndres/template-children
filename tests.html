@@ -1,0 +1,39 @@
+<template name="emptyTemplate">
+</template>
+
+<template name="fooTextTemplate">
+  <span>
+    <!-- Needs a span so we can actually switch the DOM nodes easier -->
+  {{#if text}}
+    {{text}}
+  {{else}}
+    foo
+  {{/if}}
+  </span>
+</template>
+
+<template name="templateOneChild">
+  {{> fooTextTemplate}}
+</template>
+
+<template name="templateTwoChild">
+  {{> fooTextTemplate}}
+  {{> fooTextTemplate}}
+</template>
+
+<!-- Template in which we can have dynamic number of child -->
+<template name="templateDynamicChild">
+  {{#each childs}}
+  {{> fooTextTemplate text=this}}
+  {{/each}}
+</template>
+
+<!-- Template in which we can have manually set the childs -->
+<template name="templateManualChild">
+  <div class="template-manual-child">
+    <!-- Purpose of this wrapper with id is so we can isolate this when manipulating DOM. -->
+    {{#each childs}}
+    {{> fooTextTemplate text=this}}
+    {{/each}}
+  </div>
+</template>
