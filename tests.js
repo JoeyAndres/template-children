@@ -1,7 +1,3 @@
-var testingInstanceGet = false;
-var testingInstanceParent = false;
-var testingData = false;
-
 // Setting this number to different value prior/after to rendering templateDynamicChild will set the number of child
 // rendered in templateDynamicChild.
 var dynamicChildCount = new ReactiveVar(5);
@@ -9,6 +5,12 @@ var dynamicChildCount = new ReactiveVar(5);
 // Setting this array to different value prior/after to rendering templateManualChild will set the number of child
 // rendered in templateDynamicChild with corresponding data context in the given array.
 var manualChildren = new ReactiveVar([]);
+
+Template.emptyTemplate.hooks({
+  rendered: function() {
+    this._renderedEmptyTemplate = true;
+  }
+});
 
 Template.templateOneChild.hooks({
   rendered: function() {
@@ -50,24 +52,6 @@ Template.templateManualChild.hooks({
 Template.templateManualChild.helpers({
   childs: function() {
     return manualChildren.get();
-  }
-});
-
-Template.onCreated(function () {
-  this._globalCreated = true;
-});
-
-Template.onRendered(function () {
-  this._globalRendered = true;
-});
-
-Template.onDestroyed(function () {
-  this._globalDestroyed = true;
-});
-
-Template.clearEventMaps.events({
-  'click button': function () {
-    return false;
   }
 });
 

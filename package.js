@@ -14,9 +14,9 @@ Package.onUse(function(api) {
     'jquery',
     'underscore',
     'tracker',
-    'timdown:rangy',
-    'aldeed:template-extension',
-    'jandres:mutation-summary',
+    'timdown:rangy@1.2.3',
+    'aldeed:template-extension@4.0.0',
+    'jandres:mutation-summary@0.0.1',
     'reactive-var'
   ], 'client');
 
@@ -27,7 +27,7 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use([
-    'aldeed:template-extension',
+    'aldeed:template-extension@4.0.0',
     'jandres:template-children',
     'jquery',
     'templating',
@@ -35,8 +35,8 @@ Package.onTest(function(api) {
     'tracker',
     'ejson',
     'underscore',
-    'timdown:rangy',
-    'jandres:mutation-summary',
+    'timdown:rangy@1.2.3',
+    'jandres:mutation-summary@0.0.1',
     'reactive-var'
   ], 'client');
 
