@@ -55,14 +55,32 @@ Template.templateManualChild.helpers({
   }
 });
 
-Tinytest.add('template-extension - children empty-children', function(test) {
+Template.templateTier1.hooks({
+  rendered: function() {
+    this._renderedTemplateTier1 = true;
+  }
+});
+
+Template.templateTier2.hooks({
+  rendered: function() {
+    this._renderedTemplateTier2 = true;
+  }
+});
+
+Template.templateTier3.hooks({
+  rendered: function() {
+    this._renderedTemplateTier3 = true;
+  }
+});
+
+Tinytest.add('template-children - children empty-children', function(test) {
   var emptyView = Blaze.render(Template.emptyTemplate, $('body')[0]);
   Tracker.flush();
   test.isTrue(emptyView._templateInstance._renderedEmptyTemplate);
   test.equal(emptyView._templateInstance.children(), []);
 });
 
-Tinytest.add('template-extension - children non-empty-children', function(test) {
+Tinytest.add('template-children - children non-empty-children', function(test) {
   var singleChildView = Blaze.render(Template.templateOneChild, $('body')[0]);
   Tracker.flush();
   test.isTrue(singleChildView._templateInstance._renderedTemplateOneChild);
@@ -83,7 +101,7 @@ Tinytest.add('template-extension - children non-empty-children', function(test) 
   test.equal(childrenTexts, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 });
 
-Tinytest.add('template-extension - children children destroy', function(test) {
+Tinytest.add('template-children - children children destroy', function(test) {
   dynamicChildCount.set(10);
   var dynamicChildView = Blaze.render(Template.templateDynamicChild, $('body')[0]);
   Tracker.flush();
@@ -120,7 +138,7 @@ Tinytest.add('template-extension - children children destroy', function(test) {
 
 // Note: this is not REORDERING, we just want to see that ordering is consistent with the data when data is changed.
 //       Reordering occurs when a dom manipulation is actually done.
-Tinytest.add('template-extension - children children-ordering', function(test) {
+Tinytest.add('template-children - children children-ordering', function(test) {
   // Establish 3 children.
   manualChildren.set([0, 1, 2]);
   var dynamicChildView = Blaze.render(Template.templateManualChild, $('body')[0]);
@@ -169,7 +187,23 @@ function swapElements(elm1, elm2) {
   parent2.insertBefore(elm1, next2);
 }
 
-Tinytest.add('template-extension - children re-ordering', function(test) {
+Tinytest.add('template-children - multi-tier children', function(test) {
+  var multiTierView = Blaze.render(Template.templateTier1, $('body')[0]);
+  Tracker.flush();
+  test.isTrue(multiTierView._templateInstance._renderedTemplateTier1);
+  test.equal(multiTierView._templateInstance.children().length, 2);
+  test.equal(multiTierView._templateInstance.children(1).length, 2);
+  Tracker.flush();
+  test.equal(multiTierView._templateInstance.children()[0]._renderedTemplateTier2);
+  test.equal(multiTierView._templateInstance.children()[1]._renderedTemplateTier2);
+  Tracker.flush();
+
+
+  // This fails atm. I don't know why.
+  test.equal(multiTierView._templateInstance.children(2).length, 6);
+});
+
+Tinytest.add('template-children - children re-ordering', function(test) {
   // Establish 3 children.
   manualChildren.set([0, 1, 2]);
   var manualChildView = Blaze.render(Template.templateManualChild, $('body')[0]);

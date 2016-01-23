@@ -37,3 +37,18 @@
     {{/each}}
   </div>
 </template>
+
+<template name="templateTier1">
+  {{> templateTier2}}
+  {{> templateTier2}}
+</template>
+
+<template name="templateTier2">
+  What?
+  {{> templateTier3}}
+  {{> templateTier3}}
+</template>
+
+<template name="templateTier3">
+  Hello
+</template>
