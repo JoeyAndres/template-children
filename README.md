@@ -48,8 +48,16 @@ If there are bugs, use the github [issue tracker](https://github.com/JoeyAndres/
 personally try and see what is up.
 
 # TODO:
-1. `children` or `getChildren` methods accepts an integer **x** and will return all children in **x** tiers, in a dfs
-   order.
-2. Improve performance in MutationObserver by not doing anything if non of the things that got reordered are direct
+1. ~~`children` or `getChildren` methods accepts an integer **x** and will return all children in **x** tiers, in a dfs
+   order.~~
+2. ~~Improve performance in MutationObserver by not doing anything if non of the things that got reordered are direct
    children. This is because, there exist no grand children DOM element that is the top level DOM element of a child
-   template.
+   template.~~
+3. In 0.0.5 performance improvements were made by having just one mutation observer delegating task to each template
+   instances.
+   
+   Possible ways to even make this faster:
+   - Only enable (for a template) when children()/getChildren() is called.
+   - Have some hash concerning first level elements to template. This will massively improve performance. By only
+     considering first level, we avoid executing changes from top level template to the template where the dom element
+     that changed is in first leve.
