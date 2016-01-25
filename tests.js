@@ -194,12 +194,15 @@ Tinytest.add('template-children - multi-tier children', function(test) {
   test.equal(multiTierView._templateInstance.children().length, 2);
   test.equal(multiTierView._templateInstance.children(1).length, 2);
   Tracker.flush();
-  test.equal(multiTierView._templateInstance.children()[0]._renderedTemplateTier2);
-  test.equal(multiTierView._templateInstance.children()[1]._renderedTemplateTier2);
+  test.isTrue(multiTierView._templateInstance.children()[0]._renderedTemplateTier2);
+  test.isTrue(multiTierView._templateInstance.children()[1]._renderedTemplateTier2);
   Tracker.flush();
-
-
-  // This fails atm. I don't know why.
+  test.isTrue(multiTierView._templateInstance.children()[0].children()[0]._renderedTemplateTier3);
+  test.isTrue(multiTierView._templateInstance.children()[0].children()[1]._renderedTemplateTier3);
+  test.isTrue(multiTierView._templateInstance.children()[1].children()[0]._renderedTemplateTier3);
+  test.isTrue(multiTierView._templateInstance.children()[1].children()[1]._renderedTemplateTier3);
+  test.equal(multiTierView._templateInstance.children()[0].children().length, 2);
+  test.equal(multiTierView._templateInstance.children()[1].children().length, 2);
   test.equal(multiTierView._templateInstance.children(2).length, 6);
 });
 
