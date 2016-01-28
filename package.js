@@ -1,7 +1,7 @@
 Package.describe({
   name: "jandres:template-children",
   summary: "Meteor package that adds the ability to keep track of underlying templates, including ordering.",
-  version: "0.0.5",
+  version: "0.0.6",
   git: "https://github.com/JoeyAndres/template-children.git"
 });
 

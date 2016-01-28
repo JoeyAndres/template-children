@@ -1,5 +1,6 @@
-# jandres:template-children
+# jandres:template-children (Deprecated).
 Meteor package that adds the ability to keep track of underlying templates, including ordering.
+_This will be mereged to jandres:template-extension-extended package._
 
 # Install:
 
